@@ -1,0 +1,7 @@
+[package]
+name = "web3Dapp"
+version = "0.1.0"
+authors = ["moye <3132225629@qq.com>"]
+edition = "2021"
+
+[dependencies]
