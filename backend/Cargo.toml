@@ -5,3 +5,4 @@ authors = ["moye <3132225629@qq.com>"]
 edition = "2021"
 
 [dependencies]
+anchor-lang = "0.26.0"

@@ -7,17 +7,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdac8c93-94e9-44ed-9d3b-7da46ec4fe10" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/web3Dapp.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" />
-    </list>
+    <list default="true" id="fdac8c93-94e9-44ed-9d3b-7da46ec4fe10" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +35,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/keion/keion/src-tauri",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -89,6 +80,7 @@
       <updated>1735196955322</updated>
       <workItem from="1735196956361" duration="9822000" />
       <workItem from="1735287232647" duration="293000" />
+      <workItem from="1735301367026" duration="55000" />
     </task>
     <servers />
   </component>
