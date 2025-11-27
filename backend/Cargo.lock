@@ -1772,6 +1772,7 @@ name = "web3Dapp"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
+ "rand 0.7.3",
 ]
 
 [[package]]
