@@ -2,6 +2,7 @@ use std::fmt::Debug;
 use crate::user::user::User;
 use std::any::Any;
 use std::collections::HashSet;
+use std::hash::Hash;
 
 // 游戏物品trait
 pub trait GameItem: Debug + Any + Send + Sync{}
@@ -31,6 +32,27 @@ impl Game {
     }
 }
 
+// 分别实现 Hash、PartialEq、Eq的trait，使dyn GameRule可比较哈希值，从而可以插入HashSet
+impl Hash for Game {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        // 哈希参与者
+        self.participants.hash(state);
+        // 哈希 game_rule 指针的地址
+        std::ptr::hash(self.game_rule as *const _, state);
+    }
+}
+
+impl PartialEq for Game {
+    fn eq(&self, other: &Self) -> bool {
+        // 比较参与者列表
+        self.participants == other.participants &&
+            // 比较 game_rule 指针的地址，以判断是否是同一个实例
+            std::ptr::eq(self.game_rule as *const _, other.game_rule as *const _)
+    }
+}
+
+impl Eq for Game {}
+
 // 游戏调度器
 #[derive(Debug)]
 pub struct GamesScheduler {
@@ -50,6 +72,22 @@ impl GamesScheduler {
 
     pub fn get_participant_set(&self) -> &HashSet<User> {
         &self.participant_set
+    }
+
+    pub fn add_game(&mut self, game: Game) {
+        self.game_set.insert(game);
+    }
+
+    pub fn add_participant(&mut self, user: User) {
+        self.participant_set.insert(user);
+    }
+
+    pub fn remove_game(&mut self, game: &Game) {
+        self.game_set.remove(game);
+    }
+
+    pub fn remove_participant(&mut self, user: &User) {
+        self.participant_set.remove(user);
     }
 }
 
