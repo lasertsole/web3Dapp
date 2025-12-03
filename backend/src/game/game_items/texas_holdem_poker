@@ -7,7 +7,7 @@ use crate::user::user::User;
 pub struct TexasHoldemPokerGameRules {}
 
 impl GameRule for TexasHoldemPokerGameRules {
-    fn compare(&self, src: &dyn GameItem, tar: &dyn GameItem) -> bool {
+    fn compare(&self, src: Vec<&dyn GameItem>, tar: Vec<&dyn GameItem>) -> bool {
         return true;
     }
 
