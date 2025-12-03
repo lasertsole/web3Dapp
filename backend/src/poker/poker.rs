@@ -18,7 +18,7 @@ impl Suit {
 }
 
 // 扑克点数
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum Rank {
     Ace,   // A
     Two,   // 2
