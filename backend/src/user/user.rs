@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Eq, Hash, PartialEq)]
 pub struct User{
     id: i32,
     name: String,
