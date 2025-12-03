@@ -1,5 +1,8 @@
 // 引入标准库的 Vec
+use lazy_static::lazy_static;
 use std::vec::Vec;
+use std::fmt::Debug;
+use crate::user::user::User;
 
 // 扑克花色
 #[derive(Debug, Clone, Copy)] // 添加 derive 宏以方便复制和调试
@@ -41,7 +44,7 @@ impl Rank {
     ];
 }
 
-// 扑克对象
+// 扑克卡对象
 #[derive(Debug)]
 pub struct Card{
     pub suit: Suit,
@@ -55,17 +58,44 @@ impl Card {
 }
 
 // 获取完整的52张牌组
-pub fn get_whole_deck_of_cards()->Vec<Card>{
-    let mut deck = Vec::with_capacity(52);
 
-    // 遍历所有花色
-    for suit in Suit::ALL_SUITS {
-        // 遍历所有点数
-        for rank in Rank::ALL_RANKS {
-            // 为每种花色和点数组合创建一张新牌
-            deck.push(Card::new(suit, rank));
+lazy_static! {
+    pub static ref ALL_CARDS: Vec<Card> = {
+        let mut deck = Vec::with_capacity(52);
+
+        // 遍历所有花色
+        for suit in Suit::ALL_SUITS {
+            // 遍历所有点数
+            for rank in Rank::ALL_RANKS {
+                // 为每种花色和点数组合创建一张新牌
+                deck.push(Card::new(suit, rank));
+            }
         }
-    }
 
-    deck
+        deck
+    };
+}
+
+// 游戏规则trait
+trait GameRule: Debug  {
+    // 这是一个方法签名：它接受 self 的不可变引用，不返回任何值
+    fn compare(&self, src: Card, tar: Card) -> bool;
+
+    // Trait 也可以提供默认实现
+    fn allocate(&self, users:&Vec<User>, allocate_rule:Box<dyn Fn(&Vec<User>, &Vec<Card>) -> ()>) -> (){
+        allocate_rule(users, &ALL_CARDS);
+    }
+}
+
+// 扑克卡游戏类
+#[derive(Debug)]
+pub struct PokerGame {
+    pub whole_deck_of_cards: Vec<Card>,
+    pub game_rule: Box<dyn GameRule>,
+}
+
+impl PokerGame {
+    pub fn new(whole_deck_of_cards: Vec<Card>, game_rule: Box<dyn GameRule>) -> PokerGame {
+        PokerGame{whole_deck_of_cards, game_rule}
+    }
 }
