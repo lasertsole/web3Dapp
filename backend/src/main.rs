@@ -1,6 +1,9 @@
-use anchor_lang::prelude::*;
-use gambling::poker;
+#[macro_use]
+extern crate lazy_static;
+mod user;
+mod poker;
+mod game;
+
 fn main() {
-    poker::poker::get_whole_deck_of_cards();
-    println!("Hello, world!");
+    println!("{:?} ", *poker::poker::ALL_CARDS);
 }
