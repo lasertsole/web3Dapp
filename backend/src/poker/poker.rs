@@ -1,7 +1,7 @@
 // 引入标准库的 Vec
-use lazy_static::lazy_static;
 use std::vec::Vec;
 use std::fmt::Debug;
+use crate::game::game::GameItem;
 
 // 扑克花色
 #[derive(Debug, Clone, Copy)] // 添加 derive 宏以方便复制和调试
@@ -18,7 +18,7 @@ impl Suit {
 }
 
 // 扑克点数
-#[derive(Debug)] // 添加 derive 宏
+#[derive(Debug, Clone)]
 pub enum Rank {
     Ace,   // A
     Two,   // 2
@@ -44,33 +44,32 @@ impl Rank {
 }
 
 // 扑克卡对象
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Card{
     pub suit: Suit,
     pub rank: Rank,
 }
 
-impl Card {
-    pub fn new(suit: Suit, rank: Rank) -> Card {
+impl GameItem for Card{}
+
+impl Card{
+    pub fn new(suit: Suit, rank: Rank) -> Self {
         Card{suit, rank}
     }
 }
 
 // 获取完整的52张牌组
+pub fn get_all_cards() -> Vec<Card> {
+    let mut deck = Vec::with_capacity(52);
 
-lazy_static! {
-    pub static ref ALL_CARDS: Vec<Card> = {
-        let mut deck = Vec::with_capacity(52);
-
-        // 遍历所有花色
-        for suit in Suit::ALL_SUITS {
-            // 遍历所有点数
-            for rank in Rank::ALL_RANKS {
-                // 为每种花色和点数组合创建一张新牌
-                deck.push(Card::new(suit, rank));
-            }
+    // 遍历所有花色
+    for suit in Suit::ALL_SUITS {
+        // 遍历所有点数
+        for rank in Rank::ALL_RANKS {
+            // 为每种花色和点数组合创建一张新牌
+            deck.push(Card::new(suit, rank));
         }
+    }
 
-        deck
-    };
+    deck
 }
