@@ -75,27 +75,3 @@ lazy_static! {
         deck
     };
 }
-
-// 游戏规则trait
-trait GameRule: Debug  {
-    // 这是一个方法签名：它接受 self 的不可变引用，不返回任何值
-    fn compare(&self, src: Card, tar: Card) -> bool;
-
-    // Trait 也可以提供默认实现
-    fn allocate(&self, users:&Vec<User>, allocate_rule:Box<dyn Fn(&Vec<User>, &Vec<Card>) -> ()>) -> (){
-        allocate_rule(users, &ALL_CARDS);
-    }
-}
-
-// 扑克卡游戏类
-#[derive(Debug)]
-pub struct PokerGame {
-    pub whole_deck_of_cards: Vec<Card>,
-    pub game_rule: Box<dyn GameRule>,
-}
-
-impl PokerGame {
-    pub fn new(whole_deck_of_cards: Vec<Card>, game_rule: Box<dyn GameRule>) -> PokerGame {
-        PokerGame{whole_deck_of_cards, game_rule}
-    }
-}
