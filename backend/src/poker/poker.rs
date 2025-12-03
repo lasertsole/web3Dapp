@@ -2,7 +2,6 @@
 use lazy_static::lazy_static;
 use std::vec::Vec;
 use std::fmt::Debug;
-use crate::user::user::User;
 
 // 扑克花色
 #[derive(Debug, Clone, Copy)] // 添加 derive 宏以方便复制和调试
@@ -19,7 +18,7 @@ impl Suit {
 }
 
 // 扑克点数
-#[derive(Debug, Clone, Copy)] // 添加 derive 宏
+#[derive(Debug)] // 添加 derive 宏
 pub enum Rank {
     Ace,   // A
     Two,   // 2
