@@ -38,7 +38,7 @@ pub struct GamesScheduler {
     participant_set: HashSet<User>
 }
 
-impl<'a> GamesScheduler {
+impl GamesScheduler {
     //控制为单例模式
     pub(self) fn new(game_set: HashSet<Game>, participant_set: HashSet<User>) -> GamesScheduler {
         GamesScheduler{game_set, participant_set}
