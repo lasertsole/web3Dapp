@@ -11,7 +11,7 @@ pub trait GameItem: Debug + Any + Send + Sync{}
 pub trait GameRule: Debug + Send + Sync {
 
     // 这是一个方法签名：它接受 self 的不可变引用，不返回任何值
-    fn compare(&self, src: &dyn GameItem, tar: &dyn GameItem) -> bool;
+    fn compare(&self, src: Vec<&dyn GameItem>, tar: Vec<&dyn GameItem>) -> bool;
 
     // Trait 也可以提供默认实现
     fn allocate(&self, users:&Vec<User>, game_item:&Vec<&dyn GameItem>,allocate_rule:&dyn Fn(&Vec<User>, &Vec<&dyn GameItem>) -> ()) -> (){
@@ -19,15 +19,65 @@ pub trait GameRule: Debug + Send + Sync {
     }
 }
 
+// 玩家身份enum
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+pub enum PlayerRole{
+    Player,// 玩家
+    Dealer// 荷官
+}
+
+// 玩家
+#[derive(Debug)]
+pub struct Player{
+    player_role: PlayerRole,
+    user: &'static User,
+    game_item: &'static Vec<&'static dyn GameItem>,
+}
+
+impl Player{
+    pub fn new(player_role: PlayerRole, user: &'static User, game_item: &'static Vec<&'static dyn GameItem>) -> Self{
+        Player{player_role, user, game_item}
+    }
+
+    pub fn update_player_role(&mut self, new_role: PlayerRole){
+        self.player_role = new_role;
+    }
+
+    pub fn update_game_item(&mut self, new_game_item: &'static Vec<&'static dyn GameItem>){
+        self.game_item = new_game_item;
+    }
+}
+
+// 分别实现 Hash、PartialEq、Eq的trait，使dyn GameItem可比较哈希值，从而可以插入HashSet
+impl Hash for Player {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        // 哈希参与者
+        self.user.hash(state);
+        // 哈希 game_rule 指针的地址
+        std::ptr::hash(self.game_item as *const _, state);
+    }
+}
+
+impl PartialEq for Player {
+    fn eq(&self, other: &Self) -> bool {
+        // 比较参与者列表
+        self.user == other.user &&
+            // 比较 game_rule 指针的地址，以判断是否是同一个实例
+            std::ptr::eq(self.game_item as *const _, other.game_item as *const _)
+    }
+}
+
+impl Eq for Player {}
+
 // 游戏对局
 #[derive(Debug)]
 pub struct Game {
-    participants : Vec<&'static User>,
+    participants : Vec<&'static Player>,
     game_rule: &'static dyn GameRule,
 }
 
 impl Game {
-    pub fn new(participants: Vec<&'static User>, game_rule: &'static (dyn GameRule)) -> Game {
+    pub fn new(participants: Vec<&'static Player>, game_rule: &'static (dyn GameRule)) -> Game {
         Game{participants, game_rule}
     }
 }
