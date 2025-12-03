@@ -1,2 +1,2 @@
 pub mod game;
-pub mod game_items;
+pub mod game_projects;
