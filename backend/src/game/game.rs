@@ -14,7 +14,7 @@ pub trait GameRule: Debug + Send + Sync {
     fn compare(&self, src: Vec<&dyn GameItem>, tar: Vec<&dyn GameItem>) -> bool;
 
     // Trait 也可以提供默认实现
-    fn allocate(&self, users:&Vec<User>, game_item:&Vec<&dyn GameItem>,allocate_rule:&dyn Fn(&Vec<User>, &Vec<&dyn GameItem>) -> ()) -> (){
+    fn allocate(&self, users:&Vec<User>, game_item:&Vec<&dyn GameItem>, allocate_rule:&mut dyn FnMut(&Vec<User>, &Vec<&dyn GameItem>) -> ()) -> (){
         allocate_rule(users, game_item);
     }
 }
