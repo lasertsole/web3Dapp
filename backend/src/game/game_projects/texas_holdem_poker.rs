@@ -11,7 +11,7 @@ impl GameRule for TexasHoldemPokerGameRules {
         return true;
     }
 
-    fn allocate(&self, users: &Vec<User>, game_item: &Vec<&dyn GameItem>, allocate_rule: &dyn Fn(&Vec<User>, &Vec<&dyn GameItem>) -> ()) -> () {
+    fn allocate(&self, users: &Vec<User>, game_item: &Vec<&dyn GameItem>, allocate_rule: &mut dyn FnMut(&Vec<User>, &Vec<&dyn GameItem>) -> ()) -> () {
         todo!()
     }
 }
