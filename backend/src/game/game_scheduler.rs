@@ -11,7 +11,7 @@ pub struct GamesScheduler {
 
 impl GamesScheduler {
     //控制为单例模式
-    pub(self) fn new(game_set: HashSet<Game>, participant_set: HashSet<User>) -> GamesScheduler {
+    pub(self) fn new(game_set: HashSet<Game>, participant_set: HashSet<User>) -> Self {
         GamesScheduler{game_set, participant_set}
     }
 
@@ -23,24 +23,21 @@ impl GamesScheduler {
         &self.participant_set
     }
 
-    pub fn add_game(&mut self, game: Game) {
+    pub fn add_game(&mut self, game: Game) ->() {
         self.game_set.insert(game);
     }
 
-    pub fn add_participant(&mut self, user: User) {
+    pub fn add_participant(&mut self, user: User) ->() {
         self.participant_set.insert(user);
     }
 
-    pub fn remove_game(&mut self, game: &Game) {
+    pub fn remove_game(&mut self, game: &Game) ->() {
         self.game_set.remove(game);
     }
 
-    pub fn remove_participant(&mut self, user: &User) {
+    pub fn remove_participant(&mut self, user: &User) ->() {
         self.participant_set.remove(user);
     }
 }
-//
-// lazy_static! {
-//     //控制为单例模式
-//     pub static ref GLOBAL_GAMES_SCHEDULER: GamesScheduler = GamesScheduler::new(HashSet::new(), HashSet::new());
-// }
+
+pub static GAMES_SCHEDULER:GamesScheduler = GamesScheduler::new(HashSet::new(), HashSet::new());

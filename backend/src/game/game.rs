@@ -36,7 +36,7 @@ impl Game {
         game_rule: &'static mut GameRule,
         game_state: GameState,
         game_context: HashMap<String, Box<dyn Any + Send + Sync>>,
-    ) -> Game {
+    ) -> Self {
         Game {
             current_players,
             game_item,

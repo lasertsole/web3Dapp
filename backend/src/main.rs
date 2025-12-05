@@ -1,10 +1,8 @@
-#[macro_use]
-extern crate lazy_static;
 mod user;
-mod poker;
 mod game;
+mod timer;
+mod event;
 
 fn main() {
-    println!("{:?} ", poker::poker::get_all_cards());
-    // println!("{:?} ", *game::game::GLOBAL_GAMES_SCHEDULER);
+    println!("{:?} ", game::game_items::poker::poker::get_all_cards());
 }

@@ -757,7 +757,6 @@ name = "gambling"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
- "lazy_static",
  "rand 0.7.3",
 ]
 

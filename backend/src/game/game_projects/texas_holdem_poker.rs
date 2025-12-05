@@ -1,9 +1,4 @@
-use std::fmt::{Debug};
-use lazy_static::lazy_static;
+use std::fmt::Debug;
 
 #[derive(Debug)]
 pub struct TexasHoldemPokerGameRules {}
-
-lazy_static! {
-
-}
